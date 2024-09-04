@@ -11,7 +11,7 @@ function classNames(...classes:any) {
 }
 export default function Navbar() {
   return (
-    <Disclosure as="nav" className="bg-stone-200">
+    <Disclosure as="nav" className="bg-stone-400 bg-opacity-50 backdrop-blur-sm  sticky z-50 left-0 top-0">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-20">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -53,7 +53,7 @@ export default function Navbar() {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
-              className="relative rounded-full bg-gray-300  p-1 p-2 text-black hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              className="relative rounded-full bg-gray-300 p-2 text-black hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
@@ -105,7 +105,7 @@ export default function Navbar() {
               href={item.href}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
-                item.current ? 'bg-gray-900 text-white' : 'text-black hover:bg-gray-700 hover:text-white',
+                item.current ? 'bg-stone-700 text-white' : 'text-stone-50 hover:bg-stone-500 hover:text-white',
                 'block rounded-md px-3 py-2 text-base font-medium',
               )}
             >
