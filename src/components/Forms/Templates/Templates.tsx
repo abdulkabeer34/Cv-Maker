@@ -2,9 +2,6 @@ import React from 'react';
 import { Card, Col, Row, } from 'antd'
 import styled from 'styled-components';
 
-
-
-
 const Tempaltes: React.FC = () => {
 
   return (
@@ -16,7 +13,7 @@ const Tempaltes: React.FC = () => {
       </div>
       <Row gutter={16} justify="space-between" className='gap-y-10'>
         {
-          Array.from({ length: 10 }, (_, index) => index + 1).map(index => (
+          Array.from({ length: 10 }, (_, index) => index + 1).map(() => (
             <Col span={7}>
               <AntdCard
                 hoverable
