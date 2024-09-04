@@ -6,7 +6,6 @@ import { PlusCircle } from 'lucide-react';
 
 
 const Personal: React.FC = () => {
-
   return (
 
     <div className='content-area mx-auto  w-10/12 '>
