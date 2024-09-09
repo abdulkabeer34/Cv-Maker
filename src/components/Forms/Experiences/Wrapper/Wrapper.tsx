@@ -1,14 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
+import {motion} from "framer-motion"
 
 const Wrapper = ({icon,text,children}:{icon:React.ReactNode,text:string,children:React.ReactNode}) => {
 
-    const toggleBottom = (e: any) => {
-        const parentElement = e?.currentTarget?.parentElement;
-        const selectedElement = parentElement?.querySelector('.form-div');
-        if (selectedElement) {
-            selectedElement?.classList?.toggle('hidden');
-        }
+    const [isAddtional , setIsAdditonal] = useState<boolean>(false)
+
+    const toggleBottom = () => {
+        setIsAdditonal(prev=>!prev)
     }
+
 
     return (
         <div className='w-full'>
@@ -18,12 +18,22 @@ const Wrapper = ({icon,text,children}:{icon:React.ReactNode,text:string,children
                     {text}
                 </h1>
             </div>
-            <div className='w-full  form-div relative bottom-2.5 min-h-60 p-6 pt-3 px-10 cursor-pointer bg-white rounded-lg '>
-                <div className='w-11/12 mx-auto h-[1px] bg-stone-200' />
-                <div className='form pt-9'>
+            <motion.div
+              initial={{height:0 }}
+              animate={{height: isAddtional ? "auto" : 0 }}
+              transition={{ duration: .4 }}
+              style={{scrollbarWidth:"none" }}
+              className='w-full  form-div relative bottom-2.5 pt-2  px-10 cursor-pointer bg-white rounded-lg  overflow-y-hidden'>
+                <motion.div 
+                initial={{height:0 }}
+                animate={{height: isAddtional ? "1px" : 0  }}
+                transition={{ duration: .4 }}
+                className='w-11/12 mx-auto h-[1px] bg-stone-200'
+                 />
+                <div className='form pt-9 '>
                     {children}
                 </div>
-            </div>
+            </motion.div>
         </div>
     )
 }

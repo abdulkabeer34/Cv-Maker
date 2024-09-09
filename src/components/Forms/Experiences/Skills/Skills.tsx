@@ -23,7 +23,9 @@ const Skills = () => {
                             rules={[{ required: true, message: 'Please input the description!' }]}
                         >
                             <Select
-                                defaultValue="lucy"
+                                // defaultValue=""
+                                placeholder="Chose Level"
+                                allowClear
                                 options={[
                                     { value: 'expert', label: 'Expert' },
                                     { value: 'experienced', label: 'Experienced' },

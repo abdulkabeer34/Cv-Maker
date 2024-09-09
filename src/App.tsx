@@ -74,7 +74,7 @@ input[type="number"]::-webkit-inner-spin-button {
 margin: 0;
 }
 
-input , .ant-picker{
+input , .ant-picker , .ant-select{
   height : 45px;
 }
 
