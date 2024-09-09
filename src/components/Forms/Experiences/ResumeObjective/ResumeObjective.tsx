@@ -2,11 +2,22 @@ import { Col, Form, Row } from "antd"
 import TextArea from "antd/es/input/TextArea"
 import Wrapper from "../Wrapper/Wrapper"
 import { CircleUser } from "lucide-react"
+import { useStore } from '../../../../store/useStore'
+import { toJS } from 'mobx'
 
 const ResumeObjective = () => {
+    const store = useStore(null)
+
+    const handleChange = (_: any, data: any) => {
+      const newData = { ...data }
+      store.FormInfo.experience.addResumeObjective(newData)
+      console.log(toJS(store.FormInfo.experience.resumeObjective))
+    }
+
+
     return (
-        <Wrapper text="Resume Object" icon={<CircleUser />}>
-         <Form layout='vertical'>
+        <Wrapper text="Resume Objective" icon={<CircleUser />}>
+         <Form layout='vertical' onValuesChange={handleChange}>
 
             <Row gutter={16}>
                 <Col span={24}>

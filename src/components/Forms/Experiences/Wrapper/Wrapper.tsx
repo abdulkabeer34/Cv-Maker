@@ -1,7 +1,18 @@
 import React, { useState } from "react"
 import {motion} from "framer-motion"
+import { Button } from "antd"
 
-const Wrapper = ({icon,text,children}:{icon:React.ReactNode,text:string,children:React.ReactNode}) => {
+
+interface WrapperProps {
+    icon:React.ReactNode;
+    text:string;
+    children:React.ReactNode;
+    isAddIcon?: boolean;
+    onAdd?:any;
+    btnText?: string
+}
+
+const Wrapper = ({icon,text,children,btnText,onAdd}:WrapperProps) => {
 
     const [isAddtional , setIsAdditonal] = useState<boolean>(false)
 
@@ -12,11 +23,12 @@ const Wrapper = ({icon,text,children}:{icon:React.ReactNode,text:string,children
 
     return (
         <div className='w-full'>
-            <div className='w-full h-20 cursor-pointer z-10 bg-white text-stone-600  p-6 px-10 rounded-lg' onClick={toggleBottom}>
+            <div className='w-full h-20 cursor-pointer z-10 bg-white text-stone-600  p-6 px-10 rounded-lg flex items-center justify-between' onClick={toggleBottom}>
                 <h1 className='text-2xl flex items-center gap-x-4'>
                     {icon}
                     {text}
                 </h1>
+                <Button onClick={(e)=>{e.stopPropagation(),onAdd()}} type="primary">{btnText ?? "Add More"}</Button>
             </div>
             <motion.div
               initial={{height:0 }}

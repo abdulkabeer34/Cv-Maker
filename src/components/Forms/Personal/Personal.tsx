@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, DatePicker, Form, Input, Row, Select, } from 'antd'
 import { PlusCircle } from 'lucide-react';
 import {motion} from "framer-motion"
-
+import { useStore } from '../../../store/useStore';
+import { toJS } from 'mobx';
+import moment from 'moment';
 
 
 const Personal: React.FC = () => {
    const [isAddtional , setIsAdditonal] = useState<boolean>(false)
+   const store = useStore(null)
 
-
-   
    function smoothScrollTo(endY: number, duration: number): void {
     const startY = window.scrollY;
     const distance = endY - startY;
@@ -18,10 +19,10 @@ const Personal: React.FC = () => {
     function scrollStep(currentTime: number): void {
       if (startTime === null) startTime = currentTime;
       const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1); // Clamp between 0 and 1
+      const progress = Math.min(timeElapsed / duration, 1); 
       const easeInOut = progress < 0.5
         ? 2 * progress * progress
-        : -1 + (4 - 2 * progress) * progress; // Ease-in-out function
+        : -1 + (4 - 2 * progress) * progress;
   
       window.scrollTo(0, startY + distance * easeInOut);
   
@@ -32,20 +33,19 @@ const Personal: React.FC = () => {
   
     requestAnimationFrame(scrollStep);
   }
-  
 
    useEffect(()=>{
      if(isAddtional){
       smoothScrollTo(document.body.scrollHeight, 400);
-
-      //  setTimeout(()=>{
-        // window.scrollTo({
-        //   top: 99999999999999999999,
-        //   behavior: 'smooth'
-        // });
-      //  },400)
      }
    },[isAddtional])
+
+
+  const  handleChange = (_:any,data:any)=>{
+    const newData = { ...data, dateOfBirth: data?.dateOfBirth ? moment(data?.dateOfBirth)?.format('YYYY-MM-DD') :null}
+
+      store.FormInfo.addPersonalInfo({...newData})
+  }
 
   return (
 
@@ -54,7 +54,7 @@ const Personal: React.FC = () => {
         <h1 className='text-4xl'>Peronal Information</h1>
         <p className='text-gray-500 text-sm mt-2'>Enter Your Peronal Information</p>
       </div>
-      <Form layout='vertical'>
+      <Form layout='vertical' onValuesChange={handleChange}>
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item
@@ -137,7 +137,7 @@ const Personal: React.FC = () => {
           <Col span={12}>
             <Form.Item
               label="Place of Birth"
-              name="birthPlce"
+              name="birthPlace"
               rules={[{ required: true, message: 'Please input your city/town name!' }]}
             >
               <Input />
@@ -148,7 +148,7 @@ const Personal: React.FC = () => {
             <Col span={12}>
               <Form.Item
                 label="Driving License"
-                name="drvingLicense"
+                name="drivingLicense"
                 rules={[{ required: true, message: 'Please input your first name!' }]}
               >
                 <Input />
@@ -198,7 +198,7 @@ const Personal: React.FC = () => {
                 name="linkedin"
                 rules={[{ required: true, message: 'Please input your first name!' }]}
               >
-                <Input type='number' />
+                <Input type='text' />
               </Form.Item>
             </Col>
             <Col span={12}>

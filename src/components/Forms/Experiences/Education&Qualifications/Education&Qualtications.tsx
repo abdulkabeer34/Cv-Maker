@@ -2,12 +2,22 @@ import { Col, DatePicker, Form, Input, Row } from 'antd'
 import { GraduationCap } from 'lucide-react'
 import TextArea from 'antd/es/input/TextArea';
 import Wrapper from '../Wrapper/Wrapper';
+import { useStore } from '../../../../store/useStore'
+import { toJS } from 'mobx'
+import moment from 'moment';
 
 const EducationAndQualtications = () => {
+  const store = useStore(null)
+
+  const handleChange = (_: any, data: any) => {
+    const newData = { ...data, startDate: data?.startDate ? moment(data?.startDate)?.format('YYYY-MM-DD') :null, endDate: data?.endDate ? moment(data?.endData)?.format('YYYY-MM-DD') : null }
+    store.FormInfo.experience.addEducationQualifications(newData)
+    console.log(toJS(store.FormInfo.experience.educationQualifications))
+  }
 
   return (
     <Wrapper text='Education and Qualification' icon={<GraduationCap />}>
-      <Form layout='vertical'>
+      <Form layout='vertical' onValuesChange={handleChange}>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
