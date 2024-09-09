@@ -5,6 +5,9 @@ import styled from "styled-components"
 import Experiences from './components/Forms/Experiences/Experiences';
 import Tempaltes from './components/Forms/Templates/Templates';
 import Navbar from './components/Forms/Navbar/Navbar';
+import MyDocument from './pdfs';
+import { PDFViewer } from '@react-pdf/renderer';
+import HtmlView from './pdfs/Template1/html';
 
 const steps = [
   {
@@ -38,6 +41,7 @@ const App: React.FC = () => {
 
 
   return (
+   <>
     <ConfigProvider theme={darkTheme}>
       <Navbar />
       <div className='min-h-screen  overflow-y-auto  bg-[#f5f5f4] flex  justify-center'>
@@ -59,6 +63,11 @@ const App: React.FC = () => {
         </div>
       </div>
     </ConfigProvider>
+    {/* // <PDFViewer width="100%" height="600">
+    //   <MyDocument />
+    // </PDFViewer> */}
+    <HtmlView/>
+   </>
 
   );
 };

@@ -4,7 +4,7 @@ import WorkExperience from './WorkExperiences/WorkExperience';
 import References from './References/References';
 import ResumeObjective from './ResumeObjective/ResumeObjective';
 import EducationAndQualtications from './Education&Qualifications/Education&Qualtications';
-import Interest from './Hobby/Hobby';
+import Interest from './Interest/Interest';
 import Skills from './Skills/Skills';
 
 const Personal: React.FC = () => {
