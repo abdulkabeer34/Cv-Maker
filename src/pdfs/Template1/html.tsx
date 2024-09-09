@@ -4,7 +4,9 @@ import {observer} from "mobx-react-lite"
 import moment from "moment"
 
 
-
+const convertDate = (date:any)=>{
+    return moment(date).format("MMM Y")
+}
 
 const HtmlView = observer(() => {
     const store = useStore(null)
@@ -39,7 +41,7 @@ const HtmlView = observer(() => {
                 </div>
             </div>
             <div className="w-3/4 h-full bg-white-300 px-16 pt-10">
-                <Experience heading="Work Experience" title={experience?.jobTitle ?? "---"} sideText="Sep 2023 - Jul 2024"  middleText={`${experience?.employer ?? "---"}, ${experience?.city ?? "---"}`} endText={experience?.description}/>
+                <Experience heading="Work Experience" title={experience?.jobTitle ?? "---"} sideText={`${convertDate(experience?.startDate)} - ${convertDate(experience?.endDate)}`}  middleText={`${experience?.employer ?? "---"}, ${experience?.city ?? "---"}`} endText={experience?.description}/>
                 <Experience />
                 <Experience />
                 <Experience />
