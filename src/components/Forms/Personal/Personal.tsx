@@ -1,11 +1,52 @@
-import React from 'react';
-import { Button, Col, Form, Input, Row, } from 'antd'
+import React, { useEffect, useState } from 'react';
+import { Button, Col, DatePicker, Form, Input, Row, Select, } from 'antd'
 import { PlusCircle } from 'lucide-react';
-
+import {motion} from "framer-motion"
 
 
 
 const Personal: React.FC = () => {
+   const [isAddtional , setIsAdditonal] = useState<boolean>(false)
+
+
+   
+   function smoothScrollTo(endY: number, duration: number): void {
+    const startY = window.scrollY;
+    const distance = endY - startY;
+    let startTime: number | null = null;
+  
+    function scrollStep(currentTime: number): void {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1); // Clamp between 0 and 1
+      const easeInOut = progress < 0.5
+        ? 2 * progress * progress
+        : -1 + (4 - 2 * progress) * progress; // Ease-in-out function
+  
+      window.scrollTo(0, startY + distance * easeInOut);
+  
+      if (timeElapsed < duration) {
+        requestAnimationFrame(scrollStep);
+      }
+    }
+  
+    requestAnimationFrame(scrollStep);
+  }
+  
+
+   useEffect(()=>{
+     if(isAddtional){
+      smoothScrollTo(document.body.scrollHeight, 400);
+
+      //  setTimeout(()=>{
+        // window.scrollTo({
+        //   top: 99999999999999999999,
+        //   behavior: 'smooth'
+        // });
+      //  },400)
+     }
+   },[isAddtional])
+
   return (
 
     <div className='content-area mx-auto  w-10/12 '>
@@ -74,14 +115,111 @@ const Personal: React.FC = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16} className='mt-10 w-full'>
-          <Col span={24}>
-            <Button className='w-full h-14 text-lg flex gap-x-4'>
-              <PlusCircle />
-              <span>Additional Information</span>
-            </Button>
+
+
+
+        <motion.div className='overflow-x-hidden'
+           initial={{height:0}}
+           animate={{height: isAddtional ? "auto" : 0}}
+           transition={{ duration: .4 }}
+           style={{scrollbarWidth:"none"}}
+        >
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Date Of Birth"
+              name="dateOfBirth"
+              rules={[{ required: true, message: 'Please input your personal address!' }]}
+            >
+              <DatePicker style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Place of Birth"
+              name="birthPlce"
+              rules={[{ required: true, message: 'Please input your city/town name!' }]}
+            >
+              <Input />
+            </Form.Item>
           </Col>
         </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="Driving License"
+                name="drvingLicense"
+                rules={[{ required: true, message: 'Please input your first name!' }]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Gender"
+                name="gender"
+                rules={[{ required: true, message: 'Please input your last name!' }]}
+              >
+                <Select
+                  placeholder="Chose Gender"
+                  allowClear
+                  options={[
+                    { value: 'female', label: 'Female' },
+                    { value: 'male', label: 'Male' },
+                  ]}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="Nationality"
+                name="nationality"
+                rules={[{ required: true, message: 'Please input your first name!' }]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Martial Status"
+                name="martialStatus"
+                rules={[{ required: true, message: 'Please input your last name!' }]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="LinkedIn"
+                name="linkedin"
+                rules={[{ required: true, message: 'Please input your first name!' }]}
+              >
+                <Input type='number' />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Website"
+                name="website"
+                rules={[{ required: true, message: 'Please input your last name!' }]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+        </motion.div>
+          <Row gutter={16} className='mt-10 w-full'>
+            <Col span={24}>
+              <Button className='w-full h-14 text-lg flex gap-x-4' onClick={()=>setIsAdditonal(prev=>!prev)}>
+                <PlusCircle />
+                <span>Additional Information</span>
+              </Button>
+            </Col>
+          </Row>
       </Form>
     </div>
   );
