@@ -6,3 +6,8 @@ export const References = types.model({
     companyPhoneNumber : types.maybeNull(types.string),
     companyEmailAddress : types.maybeNull(types.string),
 })
+.views(self => ({
+    get getTitle() {
+        return Object.values(self).some(item=>item) ? "References" : false
+    }
+}))

@@ -5,9 +5,9 @@ import styled from "styled-components"
 import Experiences from './components/Forms/Experiences/Experiences';
 import Tempaltes from './components/Forms/Templates/Templates';
 import Navbar from './components/Forms/Navbar/Navbar';
-import MyDocument from './pdfs';
-import { PDFViewer } from '@react-pdf/renderer';
-import HtmlView from './pdfs/Template1/html';
+import MyDocument from './pdfs/Template1/pdf';
+import { useStore } from './store/useStore';
+import { observer } from 'mobx-react-lite';
 
 const steps = [
   {
@@ -33,11 +33,12 @@ const darkTheme = {
 
 
 
-const App: React.FC = () => {
+const App: React.FC = observer(() => {
 
   const [current, setCurrent] = useState<number>(0);
   const [form] = Form.useForm();
   const StepContent = steps[current].content;
+  const store = useStore(null)
 
 
   return (
@@ -45,8 +46,8 @@ const App: React.FC = () => {
     <ConfigProvider theme={darkTheme}>
       <Navbar />
       <div className='min-h-screen  overflow-y-auto  bg-[#f5f5f4] flex  justify-center'>
-        <div className='container  max-w-[1142px] min-h-[800px] mb-12  scroll-smooth   h-2/5  relative'>
-          <div className='header  w-10/12 mx-auto mt-12'>
+        <div className='container min-h-[800px] mb-12  scroll-smooth   h-2/5  relative'>
+          <div className='header   mx-auto mt-12'>
             <Steps items={steps} current={current} />
           </div>
           <StyledDiv
@@ -62,15 +63,11 @@ const App: React.FC = () => {
           </StyledDiv>
         </div>
       </div>
-    </ConfigProvider>
-    {/* // <PDFViewer width="100%" height="600">
-    //   <MyDocument />
-    // </PDFViewer> */}
-    <HtmlView/>
+    </ConfigProvider> 
    </>
 
   );
-};
+});
 
 export default App;
 

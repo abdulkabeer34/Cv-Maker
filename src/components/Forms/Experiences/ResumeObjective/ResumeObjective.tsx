@@ -3,21 +3,25 @@ import TextArea from "antd/es/input/TextArea"
 import Wrapper from "../Wrapper/Wrapper"
 import { CircleUser } from "lucide-react"
 import { useStore } from '../../../../store/useStore'
-import { toJS } from 'mobx'
+import { useEffect } from "react"
 
 const ResumeObjective = () => {
-    const store = useStore(null)
+    const {FormInfo : {experience: { addResumeObjective ,resumeObjective} , } }  = useStore(null)
+    const [form] = Form.useForm()
+
+    useEffect(()=>{
+        form.setFieldsValue({...resumeObjective})
+    },[])
 
     const handleChange = (_: any, data: any) => {
       const newData = { ...data }
-      store.FormInfo.experience.addResumeObjective(newData)
-      console.log(toJS(store.FormInfo.experience.resumeObjective))
+      addResumeObjective(newData)
     }
 
 
     return (
-        <Wrapper text="Resume Objective" icon={<CircleUser />}>
-         <Form layout='vertical' onValuesChange={handleChange}>
+        <Wrapper text="Resume Objective" icon={<CircleUser />} isAddIcon={false}>
+         <Form layout='vertical' onValuesChange={handleChange} form={form}>
 
             <Row gutter={16}>
                 <Col span={24}>

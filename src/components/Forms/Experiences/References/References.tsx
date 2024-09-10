@@ -2,21 +2,25 @@ import { Col, Form, Input, Row } from 'antd'
 import Wrapper from '../Wrapper/Wrapper'
 import { MessageSquareText } from 'lucide-react'
 import { useStore } from '../../../../store/useStore'
-import { toJS } from 'mobx'
+import { useEffect } from 'react'
 
 const References = () => {
     
-    const store = useStore(null)
+    const {FormInfo : {experience: { addReferences ,references} , } }  = useStore(null)
+    const [form] = Form.useForm()
+
+    useEffect(()=>{
+        form.setFieldsValue({...references})
+    },[])
 
     const handleChange = (_: any, data: any) => {
       const newData = { ...data }
-      store.FormInfo.experience.addReferences(newData)
-      console.log(toJS(store.FormInfo.experience.references))
+      addReferences(newData)
     }
 
     return (
-        <Wrapper text='References' icon={<MessageSquareText />}>
-        <Form layout='vertical' onValuesChange={handleChange}>
+        <Wrapper text='References' icon={<MessageSquareText />} isAddIcon={false}>
+        <Form layout='vertical' onValuesChange={handleChange} form={form}>
               <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
@@ -42,7 +46,7 @@ const References = () => {
                             <Form.Item
                                 label="Phone Number"
                                 name="companyPhoneNumber"
-                                rules={[{ required: true, message: 'Please input your first name!' }]}
+                                rules={[{ required: true, message: 'Please input your correct phone number!' }]}
                             >
                                 <Input type='number' />
                             </Form.Item>
