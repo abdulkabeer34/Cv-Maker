@@ -12,7 +12,7 @@ interface WrapperProps {
     btnText?: string
 }
 
-const Wrapper = ({icon,text,children,btnText,onAdd}:WrapperProps) => {
+const Wrapper = ({icon,text,children,btnText,onAdd,isAddIcon}:WrapperProps) => {
 
     const [isAddtional , setIsAdditonal] = useState<boolean>(false)
 
@@ -28,7 +28,7 @@ const Wrapper = ({icon,text,children,btnText,onAdd}:WrapperProps) => {
                     {icon}
                     {text}
                 </h1>
-                <Button onClick={(e)=>{e.stopPropagation(),onAdd()}} type="primary">{btnText ?? "Add More"}</Button>
+                {isAddIcon && <Button onClick={(e)=>{e.stopPropagation(),onAdd()}} type="primary">{btnText ?? "Add More"}</Button>}
             </div>
             <motion.div
               initial={{height:0 }}

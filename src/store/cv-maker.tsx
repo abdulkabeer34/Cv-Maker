@@ -10,7 +10,6 @@ export const FormInfo = types.model({
 })
 .actions((self)=>{
    const addPersonalInfo = (data:any) => {
-       console.log(data)
        self.personalInfo = cast({...data});
    }
 

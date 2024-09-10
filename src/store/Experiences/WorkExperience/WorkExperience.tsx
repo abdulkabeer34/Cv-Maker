@@ -8,3 +8,8 @@ export const WorkExperience = types.model({
     endDate: types.maybeNull(types.string),
     description: types.maybeNull(types.string),
 })
+.views(self => ({
+    get getTitle() {
+        return Object.values(self).some(item => item) ? "Work Experience" : false
+    }
+}))
